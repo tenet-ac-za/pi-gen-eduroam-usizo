@@ -1,0 +1,63 @@
+*filter
+:ufw-user-input - [0:0]
+:ufw-user-output - [0:0]
+:ufw-user-forward - [0:0]
+:ufw-before-logging-input - [0:0]
+:ufw-before-logging-output - [0:0]
+:ufw-before-logging-forward - [0:0]
+:ufw-user-logging-input - [0:0]
+:ufw-user-logging-output - [0:0]
+:ufw-user-logging-forward - [0:0]
+:ufw-after-logging-input - [0:0]
+:ufw-after-logging-output - [0:0]
+:ufw-after-logging-forward - [0:0]
+:ufw-logging-deny - [0:0]
+:ufw-logging-allow - [0:0]
+:ufw-user-limit - [0:0]
+:ufw-user-limit-accept - [0:0]
+### RULES ###
+
+### tuple ### allow tcp 22 0.0.0.0/0 any 196.21.99.0/25 OpenSSH - in comment=486f7573652056696e63656e74
+-A ufw-user-input -p tcp --dport 22 -s 196.21.99.0/25 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
+
+### tuple ### allow tcp 22 0.0.0.0/0 any 155.232.92.0/25 OpenSSH - in comment=73657276696365732d637074
+-A ufw-user-input -p tcp --dport 22 -s 155.232.92.0/25 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
+
+### tuple ### allow tcp 22 0.0.0.0/0 any 155.232.192.0/25 OpenSSH - in comment=73657276696365732d6a6e62
+-A ufw-user-input -p tcp --dport 22 -s 155.232.192.0/25 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
+
+### tuple ### allow tcp 22 0.0.0.0/0 any 10.0.0.0/8 OpenSSH - in comment=486f7573652056696e63656e742c2052464331393138
+-A ufw-user-input -p tcp --dport 22 -s 10.0.0.0/8 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
+
+### tuple ### allow tcp 22 0.0.0.0/0 any 172.16.0.0/12 OpenSSH - in comment=52464331393138
+-A ufw-user-input -p tcp --dport 22 -s 172.16.0.0/12 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
+
+### tuple ### allow tcp 22 0.0.0.0/0 any 192.168.0.0/16 OpenSSH - in comment=52464331393138
+-A ufw-user-input -p tcp --dport 22 -s 192.168.0.0/16 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
+
+### tuple ### allow tcp 22 0.0.0.0/0 any 192.0.2.0/24 OpenSSH - in comment=524643353733372c20466f7274694e6574
+-A ufw-user-input -p tcp --dport 22 -s 192.0.2.0/24 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
+
+### tuple ### allow tcp 22 0.0.0.0/0 any 169.254.0.0/16 OpenSSH - in comment=52464333393237204c696e6b204c6f63616c
+-A ufw-user-input -p tcp --dport 22 -s 169.254.0.0/16 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
+
+### tuple ### allow any any 0.0.0.0/0 any 0.0.0.0/0 in_ppp0 comment=7573697a6f2d76706e20284f70656e466f72746956504e29
+-A ufw-user-input -i ppp0 -j ACCEPT
+
+### END RULES ###
+
+
+### LOGGING ###
+-A ufw-after-logging-input -j LOG --log-prefix "[UFW BLOCK] " -m limit --limit 3/min --limit-burst 10
+-A ufw-after-logging-forward -j LOG --log-prefix "[UFW BLOCK] " -m limit --limit 3/min --limit-burst 10
+-I ufw-logging-deny -m conntrack --ctstate INVALID -j RETURN -m limit --limit 3/min --limit-burst 10
+-A ufw-logging-deny -j LOG --log-prefix "[UFW BLOCK] " -m limit --limit 3/min --limit-burst 10
+-A ufw-logging-allow -j LOG --log-prefix "[UFW ALLOW] " -m limit --limit 3/min --limit-burst 10
+### END LOGGING ###
+
+### RATE LIMITING ###
+-A ufw-user-limit -m limit --limit 3/minute -j LOG --log-prefix "[UFW LIMIT BLOCK] "
+-A ufw-user-limit -j REJECT
+-A ufw-user-limit-accept -j ACCEPT
+### END RATE LIMITING ###
+COMMIT

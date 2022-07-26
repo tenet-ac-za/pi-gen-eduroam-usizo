@@ -1,0 +1,26 @@
+
+[38;5;159m                                                                        &&&&[0;0m
+[38;5;159m                                                               .&&&&     &&&&&[0;0m
+[38;5;159m                                                       &&&&&     &&&&&    &&&&&[0;0m
+[38;5;159m  &&&&&    &&&&&            &&&&&     &&&&     &&&&&    &&&&&    &&&&&     &&&&[0;0m
+[38;5;159m ,&&&&     &&&&      [38;5;015mddd[38;5;159m     &&&&&    &&&&&    #&&&&     &&&&     &&&&     &&&&[0;0m
+[38;5;159m  &&&&&    &&&&&      [38;5;015m.[38;5;159m     &&&&&     &&&&     &&&&&    &&&&&    &&&&&     &&&&[0;0m
+[38;5;159m   (&&&&&     &&&&&& [38;5;015mddd[38;5;159m&&&&&&*    .&&&&&     &&&&&    &&&&&     &&&&#    &&&&&[0;0m
+[38;5;159m      &&&&&&&        [38;5;015mddd[38;5;159m       &&&&&&&     %&&&&&    #&&&&(    &&&&&     &&&&&[0;0m
+       [38;5;015meeeee    dddddddd  uuu uuu[0;0m   [38;5;024mrrrrr   ooooo    ,aaaaa.   mmm,mmm mmmm.[0;0m
+     [38;5;015meeee eee  ddd   ddd  uuu uuu[0;0m   [38;5;024mrrr   ooo   ooo    .aaaa   mmm  mmm  mmm[0;0m
+     [38;5;015meee ‾     dddd  ddd  uuu uuu[0;0m   [38;5;024mrrr   ooo   ooo  aaa  aaa  mmm  mmm  mmm[0;0m
+      [38;5;015meeeeeee   ddddddd    uuuuu[0;0m    [38;5;024mrrr     ooooo     aaaaaa   mmm  mmm  mmm[0;0m
+
+                                                            [38;5;167mU[0;0m  [38;5;029mS[0;0m  [38;5;015mI[0;0m  [38;5;020mZ[0;0m  [38;5;214mO[0;0m
+
+  [38;5;106mUseful commands:                         Routing:[0;0m
+    iw wlan0 scan                            ip route show table wlan
+    wavemon                                  ip rule show
+    termshark -i=wlan0                     [38;5;106mTables:[0;0m
+    ping -I wlan0 8.8.8.8                    main (eth0)  -> $IP_ETH0
+    traceroute -i wlan0 8.8.8.8              wlan (wlan0) -> $IP_WLAN0
+    speedtest -I wlan0                       ppp (ppp0)   -> $IP_PPP0
+    nmap -e wlan0 -T4 -F ipv4.cat
+    links{,-wlan,-ppp} https://google.com/
+

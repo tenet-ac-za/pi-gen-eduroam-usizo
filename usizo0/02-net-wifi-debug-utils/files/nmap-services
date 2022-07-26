@@ -1,0 +1,32 @@
+# eduroam National Policy for South Africa (2012-12-12ter)
+ssh             22/tcp
+http            80/tcp
+https           443/tcp
+pop3            110/tcp
+pop3s           995/tcp
+imap            143/tcp
+imaps           993/tcp
+submission      587/tcp
+submissions     465/tcp
+# eduroam Policy Service Definition (GN3-12-192)
+imsp            406//tcp
+squid           3128/tcp
+http-alt        8080/tcp
+ftp             21/tcp
+pptp            1723/tcp
+isakmp          500/udp
+openvpn         1194/tcp
+openvpn         1194/udp
+ipsec-nat-t     4500/udp
+# useful extras
+xmpp-client     5222/tcp
+stun            3478/tcp
+stun            3478/udp
+sip             5060/tcp
+sip             5060/udp
+sips            5061/tcp
+sips            5061/udp
+domain          53/tcp
+domain          53/udp
+domain-s        853/tcp
+domain-s        853/udp

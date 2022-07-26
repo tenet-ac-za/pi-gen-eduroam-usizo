@@ -1,0 +1,3 @@
+# call home
+@reboot nobody /usr/bin/usizo-watchdog.sh
+*/5 * * * * nobody /usr/bin/usizo-watchdog.sh

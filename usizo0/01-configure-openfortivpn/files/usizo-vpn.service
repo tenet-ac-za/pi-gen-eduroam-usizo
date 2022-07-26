@@ -1,0 +1,16 @@
+[Unit]
+Description=OpenFortiVPN for eduroam usizo
+After=network-online.target
+Documentation=man:openfortivpn(1)
+
+[Service]
+Type=notify
+PrivateTmp=true
+ConditionPathExists=/boot/usizo.cfg
+ExecStart=/usr/bin/usizo-vpn.sh
+OOMScoreAdjust=-100
+Restart=on-failure
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target

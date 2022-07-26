@@ -1,0 +1,12 @@
+#!/bin/sh
+
+[ -e /etc/default/usizo ] && . /etc/default/usizo
+[ -e /boot/usizo.cfg ] && . /boot/usizo.cfg
+
+ip route flush table ppp
+ip rule flush table ppp
+
+# let us know the device has gone down ;-)
+curl --silent --output /dev/null "${CALLBACK_URL}?usizo=$(cat /sys/class/net/eth0/address)&iface=${PPP_IFACE}&address=${PPP_LOCAL}&remote=${PPP_REMOTE}&param=${PPP_IPPARAM}&state=down&ts=$(date +%s)"
+
+exit 0

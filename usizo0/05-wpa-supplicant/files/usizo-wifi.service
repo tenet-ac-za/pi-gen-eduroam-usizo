@@ -1,0 +1,15 @@
+[Unit]
+Description=wpa-supplicant configuration for eduroam usizo
+Before=wpa_supplicant.service
+Before=wpa_supplicant@.service
+Before=wpa_supplicant-nl80211@.service
+Wants=network.target
+Documentation=man:wpa-supplicant(5)
+
+[Service]
+Type=oneshot
+ConditionPathExists=/boot/usizo.cfg
+ExecStart=/usr/bin/usizo-wifi.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+[ -e /etc/default/usizo ] && . /etc/default/usizo
+[ -e /boot/usizo.cfg ] && . /boot/usizo.cfg
+
+# process any static routes we need
+if [ -n "${VPN_ROUTES}" ] ; then
+	for route in ${VPN_ROUTES} ; do
+		ip route add $route dev ${PPP_IFACE} table ppp metric 100
+	done
+else
+	ip route add default via ${PPP_REMOTE} dev ${PPP_IFACE} table ppp metric 100
+fi
+ip rule add from ${PPP_LOCAL} table ppp priority 100
+ip rule add oif ${PPP_IFACE} table ppp priority 101
+
+# let us know if the device comes up ;-)
+curl --silent --output /dev/null "${CALLBACK_URL}?usizo=$(cat /sys/class/net/eth0/address)&iface=${PPP_IFACE}&address=${PPP_LOCAL}&remote=${PPP_REMOTE}&param=${PPP_IPPARAM}&state=up&ts=$(date +%s)"
+[ -e /usr/bin/usizo-watchdog.sh ] && /usr/bin/usizo-watchdog.sh
+
+exit 0

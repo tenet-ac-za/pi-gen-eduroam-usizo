@@ -1,0 +1,31 @@
+#!/bin/sh
+
+[ "${ifwireless}" = '1' -o "${interface}" = 'wlan0' ] || exit 0
+
+[ -e /etc/default/usizo ] && . /etc/default/usizo
+[ -e /boot/usizo.cfg ] && . /boot/usizo.cfg
+
+if $if_up || [ "$reason" = "ROUTERADVERT" ]; then
+    if_state=up
+    for route in $new_routers; do
+        ip route add default via ${route} dev ${interface} proto dhcp table wlan metric 303
+    done
+    for route in $new_classless_static_routes; do
+        echo "usizo-wifi: not sure how to handle: $route" >&2
+        #ip route add default via ${route} dev ${interface} table wlan metric 303
+    done
+    if [ -n "${new_ip_address}" ] ; then
+        ip rule add from ${new_ip_address} table wlan priority 300
+    fi
+    ip rule add oif ${interface} table wlan priority 301
+elif $if_down; then
+    if_state=down
+    ip route flush proto dhcp table wlan
+    ip rule flush table wlan
+fi
+
+# let us know if the device comes up ;-)
+curl --silent --output /dev/null "${CALLBACK_URL}?usizo=$(cat /sys/class/net/eth0/address)&iface=${interface}&address=${new_ip_address}&state=${if_state}&ts=$(date +%s)"
+[ -e /usr/bin/usizo-watchdog.sh ] && /usr/bin/usizo-watchdog.sh
+
+exit 0

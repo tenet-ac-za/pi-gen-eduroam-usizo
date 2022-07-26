@@ -1,0 +1,21 @@
+IMG_NAME=Usizo
+PI_GEN_REPO=https://github.com/tenet-ac-za/pi-gen-tenet
+RELEASE=bullseye
+APT_PROXY=http://172.17.0.1:3142
+DEPLOY_COMPRESSION=none
+LOCALE_DEFAULT=en_ZA.UTF-8
+TARGET_HOSTNAME=eduroam-usizo
+KEYBOARD_KEYMAP=us
+KEYBOARD_LAYOUT="English (US)"
+TIMEZONE_DEFAULT=Africa/Johannesburg
+FIRST_USER_NAME=usizo
+WPA_COUNTRY=ZA
+ENABLE_SSH=1
+PUBKEY_SSH_FIRST_USER="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMxhL/5hy1V0JNSmwsA7P0ry5kc6G6XmEfWf40355B8 ansible@ansible.tenet.local
+ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHG2FIgE+Zsn3MbXTBquNpMrl+2FD+itGYnua2N+jszb1u1WKJ8in0+Riqd8t123Xq7fT77243sqmTP6Y9xXQOY= https://github.com/ghalse.keys
+ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFsKA6YQPdeMrZtW2A1KvcfemRHfmQLeFqdgUDsYNMVL/f4BQLTTx0rCfj8PleCNYQlMzZ3Exn13+Yk45CGFbtY= https://github.com/ghalse.keys
+ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFM4V1etaoRvtRcOb3ByOQrQbJsjBjToiSQIpZdi2e9sPGAlFyGYbQJX5YjVWsEgUezkgg4SFIn1Sp7H1dNA8KU= https://github.com/dmcoetzee.keys
+ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGbtZWD0YpfHMDQHVPLN4abpSJStTvt68oKyQWRA2vnSLQBBkcxgnxtnfTFpK8NHj80o/r+MyXuUZenzwzhF9X0= https://github.com/wezyboy.keys
+"
+PUBKEY_ONLY_SSH=1
+STAGE_LIST="stage0 stage1 stage2 usizo0"
