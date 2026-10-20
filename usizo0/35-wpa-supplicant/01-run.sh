@@ -13,7 +13,7 @@ fi
 install -m 755 files/usizo-wifi.sh "${ROOTFS_DIR}/usr/bin/"
 install -m 644 files/usizo-wifi.service "${ROOTFS_DIR}/etc/systemd/system/"
 install -m 755 files/dhcpcd "${ROOTFS_DIR}/lib/dhcpcd/dhcpcd-hooks/99-usizo-wifi"
-install -m 644 files/rt_tables "${ROOTFS_DIR}/etc/iproute2/rt_tables.d/usizo-wifi.conf"
+install -m 644 -D files/rt_tables "${ROOTFS_DIR}/etc/iproute2/rt_tables.d/usizo-wifi.conf"
 
 on_chroot << EOF
 systemctl enable usizo-wifi

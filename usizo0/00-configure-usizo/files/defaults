@@ -1,5 +1,5 @@
 # Defaults for eduroam usizo
-PASSWORD=ChangeMe
+PASSWORD=ChangeMePlease
 USERNAME=$(cat /sys/class/net/eth0/address)
 REALM=usizo.local
 CALLBACK_URL=https://usizo.local/usizo/
