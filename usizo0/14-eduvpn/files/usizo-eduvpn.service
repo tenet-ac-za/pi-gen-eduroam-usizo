@@ -1,0 +1,50 @@
+[Unit]
+Description=WireGuard/eduVPN for eduroam usizo
+After=network-online.target
+Before=wg-quick.target
+Before=proxyguard-client.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/usizo
+EnvironmentFile-=/boot/usizo.cfg
+User=root
+Group=root
+UMask=0077
+RemainAfterExit=yes
+ExecStart=/usr/bin/awk ' \
+        function add_missing() { \
+            if (!has_preup) print \"PreUp = /etc/wireguard/usizo-eduroam-up-down.sh %i preup\" > output; \
+            if (!has_postup) print \"PostUp = /etc/wireguard/usizo-eduroam-up-down.sh %i up\" > output; \
+            if (!has_predown) print \"PreDown = /etc/wireguard/usizo-eduroam-up-down.sh %i down\" > output; \
+            if (!has_postdown) print \"PostDown = /etc/wireguard/usizo-eduroam-up-down.sh %i postdown\" > output; \
+            if (!has_table) print \"Table = ${EDUVPN_TABLE}\" > output; \
+            if (!has_preup || !has_postup || !has_predown || !has_postdown || !has_table) print "" > output; \
+        } \
+        BEGIN { output = \"/etc/wireguard/wg0.conf\" } \
+        { \
+            header = $$0; \
+            sub(/^[[:space:]]*/, \"\", header); \
+            if (substr(header, 1, 1) == \"[\") { \
+                if (in_interface) add_missing(); \
+                in_interface = (header == \"[Interface]\"); \
+                if (in_interface) found_interface = 1; \
+            } \
+            if (in_interface && $$0 ~ /^[[:space:]]*PreUp[[:space:]]*=/) has_preup = 1; \
+            if (in_interface && $$0 ~ /^[[:space:]]*PostUp[[:space:]]*=/) has_postup = 1; \
+            if (in_interface && $$0 ~ /^[[:space:]]*PreDown[[:space:]]*=/) has_predown = 1; \
+            if (in_interface && $$0 ~ /^[[:space:]]*PostDown[[:space:]]*=/) has_postdown = 1; \
+            if (in_interface && $$0 ~ /^[[:space:]]*Table[[:space:]]*=/) has_table = 1; \
+            print $$0 > output; \
+        } \
+        END { \
+            if (in_interface) add_missing(); \
+            close(output); \
+            if (!found_interface) exit 1; \
+        }' \
+    "${EDUVPN_CONFIG}"
+ExecStart=/usr/bin/chmod 600 /etc/wireguard/wg0.conf
+ExecStart=/bin/sh -c 'echo "${EDUVPN_TABLE} eduvpn" > /etc/iproute2/rt_tables.d/usizo-eduvpn.conf'
+
+[Install]
+WantedBy=multi-user.target

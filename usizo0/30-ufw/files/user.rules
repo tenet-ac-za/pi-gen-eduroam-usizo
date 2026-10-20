@@ -41,8 +41,8 @@
 ### tuple ### allow tcp 22 0.0.0.0/0 any 169.254.0.0/16 OpenSSH - in comment=52464333393237204c696e6b204c6f63616c
 -A ufw-user-input -p tcp --dport 22 -s 169.254.0.0/16 -j ACCEPT -m comment --comment 'dapp_OpenSSH'
 
-### tuple ### allow any any 0.0.0.0/0 any 0.0.0.0/0 in_ppp0 comment=7573697a6f2d76706e20284f70656e466f72746956504e29
--A ufw-user-input -i ppp0 -j ACCEPT
+### tuple ### allow any any 0.0.0.0/0 any 0.0.0.0/0 in_wg0 comment=7573697a6f2d76706e20284f70656e466f72746956504e29
+-A ufw-user-input -i wg0 -j ACCEPT
 
 ### END RULES ###
 

@@ -1,0 +1,22 @@
+[Unit]
+Description=Proxy WireGuard UDP traffic over TCP and HTTP(S) for %I
+After=network-online.target
+Wants=network-online.target
+PartOf=proxyguard-client.target
+
+[Service]
+AmbientCapabilities=CAP_NET_ADMIN
+RuntimeDirectory=proxyguard-client
+ExecStartPre=-/usr/local/sbin/proxyguard-client-config.sh \
+    /etc/wireguard/%i.conf \
+    "${RUNTIME_DIRECTORY}%i.env"
+Environment=FWMARK=54321
+EnvironmentFile=-/etc/default/proxyguard-client
+EnvironmentFile=-"${RUNTIME_DIRECTORY}/%i.env"
+ExecStart=proxyguard-client -listen-port ${LISTEN_PORT} -forward-port ${FORWARD_PORT} -to ${TO} -peer-ips ${PEER_IPS} -fwmark ${FWMARK}
+Restart=on-failure
+PrivateDevices=yes
+DynamicUser=yes
+
+[Install]
+WantedBy=multi-user.target

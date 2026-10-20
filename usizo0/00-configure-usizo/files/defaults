@@ -3,10 +3,9 @@ PASSWORD=ChangeMePlease
 USERNAME=$(cat /sys/class/net/eth0/address)
 REALM=usizo.local
 CALLBACK_URL=https://usizo.local/usizo/
-VPN_SERVER=localhost
-VPN_PORT=443
-#VPN_ROUTES=192.0.2.0/24
-#OPENFORTIVPN_ARGS=--min-tls=1.0
+EDUVPN_CONFIG=/boot/eduvpn.conf
+EDUVPN_TABLE=1
+#EDUVPN_ROUTES=192.0.2.0/24
 WPA_ESSID=eduroam
 #WPA_USERNAME=${USERNAME}@${REALM}
 #WPA_ANONYMOUS=anonymous@${REALM}

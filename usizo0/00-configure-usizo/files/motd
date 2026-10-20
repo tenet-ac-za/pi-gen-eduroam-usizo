@@ -20,7 +20,7 @@
     termshark -i=wlan0                     [38;5;106mTables:[0;0m
     ping -I wlan0 8.8.8.8                    main (eth0)  -> $IP_ETH0
     traceroute -i wlan0 8.8.8.8              wlan (wlan0) -> $IP_WLAN0
-    speedtest -I wlan0                       ppp (ppp0)   -> $IP_PPP0
+    speedtest -I wlan0                       eduvpn (wg0) -> $IP_WG0
     nmap -e wlan0 -T4 -F ipv4.cat
-    links{,-wlan,-ppp} https://google.com/
+    links{,-wlan,-eduvpn} https://google.com/
 
