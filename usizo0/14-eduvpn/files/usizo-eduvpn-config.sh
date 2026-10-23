@@ -5,13 +5,14 @@ function add_missing() {
     if (!has_postup) print "PostUp = " updown " %i up" > wgcnf;
     if (!has_predown) print "PreDown = " updown " %i down" > wgcnf;
     if (!has_postdown) print "PostDown = " updown " %i postdown" > wgcnf;
-    if (!has_table) print "Table = ${EDUVPN_TABLE}" > wgcnf;
+    if (!has_table) print "Table = " rtable > wgcnf;
     if (!has_preup || !has_postup || !has_predown || !has_postdown || !has_table) print "" > wgcnf;
 }
 
 BEGIN {
     if (!wgcnf) wgcnf = "/etc/wireguard/wg0.conf";
     if (!updown) updown = "/usr/local/sbin/usizo-eduvpn-up-down.sh";
+    if (!rtable) rtable = 1;
 }
 
 {
@@ -27,6 +28,7 @@ BEGIN {
     if (in_interface && $0 ~ /^[[:space:]]*PreDown[[:space:]]*=/) has_predown = 1;
     if (in_interface && $0 ~ /^[[:space:]]*PostDown[[:space:]]*=/) has_postdown = 1;
     if (in_interface && $0 ~ /^[[:space:]]*Table[[:space:]]*=/) has_table = 1;
+    if ($0 =~ /^ProxyEndpoint/) printf "#" > wgcnf;
     print $0 > wgcnf;
 }
 

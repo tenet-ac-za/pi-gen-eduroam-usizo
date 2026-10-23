@@ -8,28 +8,28 @@ ACTION=$2
 
 [ "${INTERFACE}" == wg* ] || exit 0
 
-LOCALADDR=$(wg show ${INTERFACE} address)
+LOCALADDR4=$(ip -4 -o addr show dev ${INTERFACE} | awk '{print $4}' | cut -d/ -f1)
+LOCALADDR6=$(ip -6 -o addr show dev ${INTERFACE} | awk '{print $4}' | cut -d/ -f1)
 # telemetry to tell us what's happening
-curl --silent --output /dev/null "${CALLBACK_URL}?usizo=$(cat /sys/class/net/eth0/address)&iface=${INTERFACE}&address=${LOCALADDR}&state=${ACTION}&ts=$(date +%s)"
+curl --silent --output /dev/null "${CALLBACK_URL}?usizo=$(cat /sys/class/net/eth0/address)&iface=${INTERFACE}&address=${LOCALADDR4}&state=${ACTION}&ts=$(date +%s)"
 
-case "${ACTION}" in:
+case "${ACTION}" in
 	up)
 		if [ -n "${EDUVPN_ROUTES}" ] ; then
 			for route in ${EDUVPN_ROUTES} ; do
 				ip route add $route dev ${INTERFACE} table eduvpn metric 100
 			done
 		fi
-		ip rule add from ${LOCALADDR} table eduvpn priority 100
-		ip rule add oif ${INTERFACE} table eduvpn priority 101
+		ip rule add from ${LOCALADDR4} table eduvpn priority 100
+		ip -6 rule add from ${LOCALADDR6} table eduvpn priority 100
+		#ip rule add iif ${INTERFACE} table eduvpn priority 101
 		# let us know if the device comes up ;-)
 		[ -e /usr/local/bin/usizo-watchdog.sh ] && /usr/local/bin/usizo-watchdog.sh
-		break
 	;;
 
 	postdown)
 		ip route flush table eduvpn
 		ip rule flush table eduvpn
-		break
 	;;
 esac
 

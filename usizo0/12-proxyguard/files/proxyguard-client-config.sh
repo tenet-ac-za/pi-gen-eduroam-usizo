@@ -16,6 +16,7 @@ fi
 if [ -n "${2}" ] ; then
     CFG_FILE=${2}
 else
+    echo "WARNING: overwriting default config file"
     CFG_FILE=/etc/default/proxyguard-client
 fi
 
@@ -26,7 +27,7 @@ sed -i 's/^ProxyEndpoint =/#ProxyEndpoint =/' ${VPN_CONF_FILE}
 # determine the "Peer IPs"
 DNS_HOST=$(echo ${PROXY_ENDPOINT} | cut -d '/' -f 3)
 PEER_IPS=$(host ${DNS_HOST} | grep "address" | awk {'print $NF'} | tr "\n" "," | sed 's/,$//')
-if [ "" == "${PEER_IPS}" ]; then
+if [ -z "${PEER_IPS}" ]; then
     echo "ERROR: unable to determine IP address(es) of ProxyEndpoint"
     exit 1
 fi
