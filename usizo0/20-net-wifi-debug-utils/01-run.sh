@@ -15,7 +15,7 @@ echo "export IP_ETH0=\"\$(ip -4 -o addr list eth0 scope global primary | awk '{p
 chown 1000:1000 "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.bash_aliases"
 
 # speedtest cli
-url="https://install.speedtest.net/app/cli/ookla-speedtest-1.1.1-linux-armhf.tgz"
+url="https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-armhf.tgz"
 if [ ! -f "${STAGE_WORK_DIR}/speedtest" -o ! -f "${STAGE_WORK_DIR}/speedtest.5.gz" ] ; then
     echo "Fetching speedtest cli from ${url}" >&2
     curl -s "${url}" -o "$(basename "$url")"
@@ -23,5 +23,5 @@ if [ ! -f "${STAGE_WORK_DIR}/speedtest" -o ! -f "${STAGE_WORK_DIR}/speedtest.5.g
     gzip "${STAGE_WORK_DIR}/speedtest.5"
 fi
 
-install -m 755 "${STAGE_WORK_DIR}/speedtest" "${ROOTFS_DIR}/usr/bin/"
-install -m 644 "${STAGE_WORK_DIR}/speedtest.5.gz" "${ROOTFS_DIR}/usr/share/man/man5/"
+install -m 755 -D "${STAGE_WORK_DIR}/speedtest" "${ROOTFS_DIR}/usr/local/bin/"
+install -m 644 -D "${STAGE_WORK_DIR}/speedtest.5.gz" "${ROOTFS_DIR}/usr/local/share/man/man5/"

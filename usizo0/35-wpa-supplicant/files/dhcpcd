@@ -3,7 +3,7 @@
 [ "${ifwireless}" = '1' -o "${interface}" = 'wlan0' ] || exit 0
 
 [ -e /etc/default/usizo ] && . /etc/default/usizo
-[ -e /boot/usizo.cfg ] && . /boot/usizo.cfg
+[ -e /boot/firmware/usizo.cfg ] && . /boot/firmware/usizo.cfg
 
 if $if_up || [ "$reason" = "ROUTERADVERT" ]; then
     if_state=up
@@ -26,6 +26,6 @@ fi
 
 # let us know if the device comes up ;-)
 curl --silent --output /dev/null "${CALLBACK_URL}?usizo=$(cat /sys/class/net/eth0/address)&iface=${interface}&address=${new_ip_address}&state=${if_state}&ts=$(date +%s)"
-[ -e /usr/bin/usizo-watchdog.sh ] && /usr/bin/usizo-watchdog.sh
+[ -e /usr/local/bin/usizo-watchdog.sh ] && /usr/local/bin/usizo-watchdog.sh
 
 exit 0

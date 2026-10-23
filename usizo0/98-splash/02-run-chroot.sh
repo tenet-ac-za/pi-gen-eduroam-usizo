@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-systemctl enable splashscreen
+systemctl enable usizo-splashscreen

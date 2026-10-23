@@ -1,7 +1,7 @@
 #!/bin/bash
 
 [ -e /etc/default/usizo ] && . /etc/default/usizo
-[ -e /boot/usizo.cfg ] && . /boot/usizo.cfg
+[ -e /boot/firmware/usizo.cfg ] && . /boot/firmware/usizo.cfg
 
 INTERFACE=$1
 ACTION=$2
@@ -22,7 +22,7 @@ case "${ACTION}" in:
 		ip rule add from ${LOCALADDR} table eduvpn priority 100
 		ip rule add oif ${INTERFACE} table eduvpn priority 101
 		# let us know if the device comes up ;-)
-		[ -e /usr/bin/usizo-watchdog.sh ] && /usr/bin/usizo-watchdog.sh
+		[ -e /usr/local/bin/usizo-watchdog.sh ] && /usr/local/bin/usizo-watchdog.sh
 		break
 	;;
 
