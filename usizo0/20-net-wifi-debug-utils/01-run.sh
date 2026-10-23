@@ -23,5 +23,5 @@ if [ ! -f "${STAGE_WORK_DIR}/speedtest" -o ! -f "${STAGE_WORK_DIR}/speedtest.5.g
     gzip "${STAGE_WORK_DIR}/speedtest.5"
 fi
 
-install -m 755 -D "${STAGE_WORK_DIR}/speedtest" "${ROOTFS_DIR}/usr/local/bin/"
-install -m 644 -D "${STAGE_WORK_DIR}/speedtest.5.gz" "${ROOTFS_DIR}/usr/local/share/man/man5/"
+install -m 755 "${STAGE_WORK_DIR}/speedtest" "${ROOTFS_DIR}/usr/local/bin/"
+install -m 644 -D "${STAGE_WORK_DIR}/speedtest.5.gz" "${ROOTFS_DIR}/usr/local/share/man/man5/speedtest.5.gz"
