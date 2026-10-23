@@ -12,7 +12,7 @@ User=root
 Group=root
 UMask=0077
 RemainAfterExit=yes
-ExecStart=/usr/local/sbin/usizo-eduvpn-config.sh -f wgcnf=/etc/wireguard/wg0.conf "${EDUVPN_CONFIG}"
+ExecStart=/usr/local/sbin/usizo-eduvpn-config.sh wgcnf=/etc/wireguard/wg0.conf "${EDUVPN_CONFIG}"
 ExecStart=/usr/bin/chmod 600 /etc/wireguard/wg0.conf
 ExecStart=/bin/sh -c 'echo "${EDUVPN_TABLE} eduvpn" > /etc/iproute2/rt_tables.d/usizo-eduvpn.conf'
 

@@ -1,18 +1,17 @@
-#!/usr/bin/env awk
+#!/usr/bin/awk -f
 
 function add_missing() {
-    if (!has_preup) print "PreUp = /usr/local/sbin/usizo-eduvpn-up-down.sh %i preup" > wgcnf;
-    if (!has_postup) print "PostUp = /usr/local/sbin/usizo-eduvpn-up-down.sh %i up" > wgcnf;
-    if (!has_predown) print "PreDown = /usr/local/sbin/usizo-eduvpn-up-down.sh %i down" > wgcnf;
-    if (!has_postdown) print "PostDown = /usr/local/sbin/usizo-eduvpn-up-down.sh %i postdown" > wgcnf;
+    if (!has_preup) print "PreUp = " updown " %i preup" > wgcnf;
+    if (!has_postup) print "PostUp = " updown " %i up" > wgcnf;
+    if (!has_predown) print "PreDown = " updown " %i down" > wgcnf;
+    if (!has_postdown) print "PostDown = " updown " %i postdown" > wgcnf;
     if (!has_table) print "Table = ${EDUVPN_TABLE}" > wgcnf;
     if (!has_preup || !has_postup || !has_predown || !has_postdown || !has_table) print "" > wgcnf;
 }
 
 BEGIN {
-    if (! wgcnf) {
-        wgcnf = "/etc/wireguard/wg0.conf"
-    }
+    if (!wgcnf) wgcnf = "/etc/wireguard/wg0.conf";
+    if (!updown) updown = "/usr/local/sbin/usizo-eduvpn-up-down.sh";
 }
 
 {
