@@ -1,0 +1,21 @@
+IMG_NAME=Usizo
+PI_GEN_REPO=https://github.com/tenet-ac-za/pi-gen-eduroam-usizo
+RELEASE=trixie
+APT_PROXY=http://127.0.0.1:3142
+DEPLOY_COMPRESSION=zip
+LOCALE_DEFAULT=en_ZA.UTF-8
+TARGET_HOSTNAME=eduroam-usizo
+KEYBOARD_KEYMAP=us
+KEYBOARD_LAYOUT="English (US)"
+TIMEZONE_DEFAULT=Africa/Johannesburg
+FIRST_USER_NAME=usizo
+FIRST_USER_PASS=ChangeMePlease
+DISABLE_FIRST_BOOT_USER_RENAME=1
+PASSWORDLESS_SUDO=1
+WPA_COUNTRY=ZA
+ENABLE_SSH=1
+PUBKEY_SSH_FIRST_USER="# deploy_users_ssh_keys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFP7xLB1QQNFqgh3KXymNzmDU4OlLBybR7BWwgcL4R+c your_email@example.com"
+PUBKEY_ONLY_SSH=1
+STAGE_LIST="stage0 stage1 stage2 usizo0"
+ADD_TO_HOSTS_FILE="eduvpn.example.ac.za/192.0.2.1"

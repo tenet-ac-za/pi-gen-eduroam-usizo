@@ -1,3 +1,6 @@
+USIZO_CRON=true
+# set the date if NTP not available
+@reboot root /usr/local/bin/usizo-set-datetime.sh
 # call home
 @reboot nobody /usr/local/bin/usizo-watchdog.sh
 */5 * * * * nobody /usr/local/bin/usizo-watchdog.sh
