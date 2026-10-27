@@ -25,6 +25,6 @@ fi
 
 # let us know if the device comes up ;-)
 usizotelemetry "iface=${interface}" "address=${new_ip_address}" "state=${if_state}"
-[ -e /usr/local/bin/usizo-watchdog.sh ] && /usr/local/bin/usizo-watchdog.sh
+[ -e /usr/local/bin/usizo-watchdog.sh ] && sudo -u nobody /usr/local/bin/usizo-watchdog.sh
 
 exit 0
