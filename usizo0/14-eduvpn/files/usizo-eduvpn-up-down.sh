@@ -27,7 +27,7 @@ case "${ACTION}" in
 		ip -6 rule add from ${LOCALADDR6} table eduvpn priority 100
 		#ip rule add iif ${INTERFACE} table eduvpn priority 101
 		# let us know if the device comes up ;-)
-		[ -e /usr/local/bin/usizo-watchdog.sh ] && /usr/local/bin/usizo-watchdog.sh
+		[ -e /usr/local/bin/usizo-watchdog.sh ] && sudo -u nobody /usr/local/bin/usizo-watchdog.sh
 	;;
 
 	postdown)
