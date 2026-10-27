@@ -3,6 +3,7 @@ PASSWORD=ChangeMePlease
 USERNAME=$(cat /sys/class/net/eth0/address)
 REALM=usizo.local
 CALLBACK_URL=https://usizo.local/usizo/
+USIZO_SCAN_WIFI=1
 EDUVPN_CONFIG=/boot/firmware/eduvpn.conf
 EDUVPN_TABLE=54321
 #EDUVPN_ROUTES=192.0.2.0/24

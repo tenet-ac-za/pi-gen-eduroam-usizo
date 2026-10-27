@@ -19,7 +19,10 @@ usziotelemetry() (
     while [ "${query_count}" -gt 0 ]; do
         query=$1
         shift
-        set -- "$@" --url-query "$query"
+        case "${query}" in
+            POST:*) set -- "$@" --data-urlencode "${query#POST:}" ;;
+            *) set -- "$@" --url-query "$query" ;;
+        esac
         query_count=$((query_count - 1))
     done
 

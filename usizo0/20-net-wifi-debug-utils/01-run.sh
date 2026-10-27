@@ -3,6 +3,8 @@
 # eduroam configuration for nmap
 install -m 755 -o 1000 -g 1000 -d "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.nmap/"
 install -m 644 -o 1000 -g 1000 files/nmap-services "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.nmap/"
+install -m 755 files/usizo-wifi-scan.sh "${ROOTFS_DIR}/usr/local/sbin/usizo-wifi-scan.sh"
+install -m 644 files/usizo-wifi-scan.cron "${ROOTFS_DIR}/etc/cron.d/usizo-wifi-scan"
 
 echo "alias nmap-eduroam=\"nmap -e wlan0 -T4 -F ipv4.cat\"" >> "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.bash_aliases"
 echo "alias links-wlan=\"links -bind-address \\\"\$(ip -4 -o addr list wlan0 scope global primary | awk '{print \$4}' | sed 's|/.*$||')\\\"\"" >> "${ROOTFS_DIR}/home/${FIRST_USER_NAME}/.bash_aliases"
