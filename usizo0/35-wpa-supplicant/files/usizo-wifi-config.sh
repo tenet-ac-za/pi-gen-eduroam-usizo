@@ -19,6 +19,9 @@ if [ -n "${WPA_COUNTRY}" ] ; then
 fi
 
 cat<<-EOM >> "${CFG_FILE}"
+	ctrl_interface=DIR=/run/wpa_supplicant GROUP=netdev
+	update_config=1
+	pmf=1
 	network={
 	 ssid="$WPA_ESSID"
 	 disabled=0
