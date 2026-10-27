@@ -13,7 +13,7 @@ usizofatal() {
     exit 1
 }
 
-usziotelemetry() (
+usizotelemetry() (
     usizolog "$*"
     query_count=$#
     while [ "${query_count}" -gt 0 ]; do

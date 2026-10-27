@@ -7,10 +7,10 @@ EDUVPN=$(ip -o link show wg0 2>/dev/null | awk '{print $3}')
 WIFI_CACHE=/var/cache/usizo/wifi.json
 if [ "${USIZO_SCAN_WIFI:-}" = "1" -a -r "${WIFI_CACHE}" ]; then
     WIFI_TIMESTAMP=$(stat -c %Y "${WIFI_CACHE}")
-    usziotelemetry "iface=eth0" "address=${ADDRESS}" "eduvpn=${EDUVPN}" \
+    usizotelemetry "iface=eth0" "address=${ADDRESS}" "eduvpn=${EDUVPN}" \
         "POST:wifi@${WIFI_CACHE}" "POST:wifi_ts=${WIFI_TIMESTAMP}"
 else
-    usziotelemetry "iface=eth0" "address=${ADDRESS}" "eduvpn=${EDUVPN}"
+    usizotelemetry "iface=eth0" "address=${ADDRESS}" "eduvpn=${EDUVPN}"
 fi
 
 if [ -n "${EDUVPN}" -a -n "${EDUVPN_WATCHDOG_PING}" ] ; then
