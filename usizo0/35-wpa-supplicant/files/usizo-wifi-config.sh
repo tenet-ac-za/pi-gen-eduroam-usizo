@@ -5,7 +5,7 @@
 : ${WPA_USERNAME:=${USERNAME}@${REALM}}
 : ${WPA_ANONYMOUS:=anonymous@${REALM}}
 : ${WPA_PASSWORD:=${PASSWORD}}
-: ${CFG_FILE:=/etc/wpa_supplicant/wpa_supplicant.conf}
+: ${CFG_FILE:=/etc/wpa_supplicant/wpa_supplicant-wlan0.conf}
 
 if [ ! -e "${CFG_FILE}.tmpl" ] ; then
 	# clear out an existing network block
@@ -27,7 +27,7 @@ cat<<-EOM >> "${CFG_FILE}"
 	 disabled=0
 	 scan_ssid=1
 	 proto=WPA RSN
-	 key_mgmt=WPA-EAP
+	 key_mgmt=WPA-EAP WPA-EAP-SHA256
 	 pairwise=CCMP
 	 group=CCMP
 	 eap=${WPA_EAP_METHOD}
@@ -35,6 +35,7 @@ cat<<-EOM >> "${CFG_FILE}"
 	 identity="${WPA_USERNAME}"
 	 password="${WPA_PASSWORD}"
 	 anonymous_identity="${WPA_ANONYMOUS}"
+	 ieee80211w=1
 	}
 EOM
 
