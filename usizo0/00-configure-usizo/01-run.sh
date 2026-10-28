@@ -7,6 +7,7 @@ install -m 755 files/usizo-watchdog.sh "${ROOTFS_DIR}/usr/local/bin/"
 install -m 755 files/usizo-set-datetime.sh "${ROOTFS_DIR}/usr/local/bin/"
 install -m 644 files/crontab "${ROOTFS_DIR}/etc/cron.d/usizo"
 install -m 644 files/motd "${ROOTFS_DIR}/etc/motd"
+install -m 644 files/usizo-managed.conf /etc/NetworkManager/conf.d/usizo-managed.conf
 
 VERSION=$(date --iso-8601)
 if [ -e "${BASE_DIR}/.git" ] ; then
