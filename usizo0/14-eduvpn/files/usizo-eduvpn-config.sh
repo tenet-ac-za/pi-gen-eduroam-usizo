@@ -19,12 +19,14 @@ BEGIN {
     IGNORECASE = 1;
     if (!wgcnf) wgcnf = "/etc/wireguard/wg0.conf";
     if (!updown) updown = "/usr/local/sbin/usizo-eduvpn-up-down.sh";
-    if (!rtable) rtable = 1;
+    if (!rtable) rtable = 54321;
 }
 
 {
+    sub(/\r$/, "")
     header = $0;
     sub(/^[[:space:]]*/, "", header);
+    sub(/[[:space:]]*$/, "", header);
     if (substr(header, 1, 1) == "[") {
         if (in_interface) add_interface_missing();
         if (in_peer) add_peer_missing();

@@ -2,6 +2,10 @@
 
 . /usr/local/lib/usizo-functions
 
+if [ -n "${USIZO_REBOOT:-}" ] ; then
+    sleep 25
+fi
+
 ADDRESS=$(ip -4 -o addr list eth0 scope global primary | awk '{print $4}')
 EDUVPN=$(ip -o link show wg0 2>/dev/null | awk '{print $3}')
 SSID=$(iwgetid -r)

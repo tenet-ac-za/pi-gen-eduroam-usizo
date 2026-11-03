@@ -7,7 +7,7 @@ Before=proxyguard-client.target
 [Service]
 Type=oneshot
 EnvironmentFile=/etc/default/usizo
-EnvironmentFile-=/boot/firmware/usizo.cfg
+EnvironmentFile=-/boot/firmware/usizo.cfg
 User=root
 Group=root
 UMask=0077

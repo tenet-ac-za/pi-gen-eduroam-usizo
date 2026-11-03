@@ -1,0 +1,15 @@
+[Unit]
+Description=One-off time setter eduroam usizo
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/usizo
+EnvironmentFile=-/boot/firmware/usizo.cfg
+User=root
+Group=root
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/usizo-set-datetime.sh
+
+[Install]
+WantedBy=multi-user.target
