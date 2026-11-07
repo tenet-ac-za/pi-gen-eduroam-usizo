@@ -9,14 +9,7 @@ install -m 644 -D files/usizo-datetime.service "${ROOTFS_DIR}/usr/local/lib/syst
 install -m 644 files/crontab "${ROOTFS_DIR}/etc/cron.d/usizo"
 install -m 644 files/motd "${ROOTFS_DIR}/etc/motd"
 install -m 644 files/usizo-managed.conf /etc/NetworkManager/conf.d/usizo-managed.conf
-
-VERSION=$(date --iso-8601)
-if [ -e "${BASE_DIR}/.git" ] ; then
-    VERSION="${VERSION} / $(git rev-parse --short HEAD)"
-fi
-( echo "eduroam usizo (${VERSION})"; grep -vi usizo "${ROOTFS_DIR}/etc/issue" ) > "${STAGE_WORK_DIR}/issue"
-
-install -m 644 "${STAGE_WORK_DIR}/issue" "${ROOTFS_DIR}/etc/issue"
+install -m 644 -D files/issue "${ROOTFS_DIR}/etc/issue.d/00-usizo"
 
 # prepopulate the hosts file
 for host in ${ADD_TO_HOSTS_FILE} ; do
